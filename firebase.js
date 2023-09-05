@@ -21,6 +21,11 @@ const auth = getAuth(app);
 
 const btnEntrar = document.getElementById('btnEntrar');
 
+const objalert01 = document.getElementById('objalert01');
+const txtobjalert01 = document.getElementById('txtobjalert01');
+
+
+
 let user=""; // Dados do usuario
 
 
@@ -58,15 +63,42 @@ btnEntrar.addEventListener('click',()=>{
 
 
               switch (errorMessage) {
+
                 case "Firebase: Error (auth/user-not-found).":
-                    alert('Usuário não encontrado');
+
+                    objalert01.classList.remove("input-error");
+                    objalert01.classList.add("alert-warning");
+
+                    objalert01.style.display="flex";
+                    txtobjalert01.textContent="Usuário não encontrado";
+
+                    setTimeout(function() {objalert01.style.display="none";}, 4000);
+
                     break;
+
                 case "Firebase: Error (auth/wrong-password).":
-                    alert('Senha Incorreta');
+
+                    objalert01.classList.remove("input-error");
+                    objalert01.classList.add("alert-warning");
+
+                    objalert01.style.display="flex";
+                    txtobjalert01.textContent="Senha Incorreta";
+
+                    setTimeout(function() {objalert01.style.display="none";}, 4000);
+
                     break;
-                // Outros casos
+
+                
                 default:
-                    alert(errorCode + " - " + errorMessage);
+
+                    objalert01.classList.remove("input-warning");
+                    objalert01.classList.add("alert-error");
+
+                    objalert01.style.display="flex";
+                    txtobjalert01.textContent=errorCode + " - " + errorMessage;
+
+                    setTimeout(function() {objalert01.style.display="none";}, 4000);
+       
             }
   
           })
@@ -87,7 +119,7 @@ function usuarioLogado(){
     } else {
      
      return false
-     
+
     }
  
  };
