@@ -4,6 +4,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebas
 import { getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged    } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
 
 
+
 // variáveis
 
 const firebaseConfig = {
@@ -24,6 +25,8 @@ const btnEntrar = document.getElementById('btnEntrar');
 const objalert01 = document.getElementById('objalert01');
 const txtobjalert01 = document.getElementById('txtobjalert01');
 
+const objloading = document.getElementById('objloading');
+
 
 
 let user=""; // Dados do usuario
@@ -31,17 +34,20 @@ let user=""; // Dados do usuario
 
 // Funcoes
 
+function showloading(){objloading.style.display="flex";};
+function hideloading(){objloading.style.display="none";};
 
 
 // Fazer login
 
+
 btnEntrar.addEventListener('click',()=>{
 
-    if(senhaRegex.test(txtSenha.value)&&emailRegex.test(txtEmail.value)){  
+    if(senhaRegex.test(txtSenha.value)&&emailRegex.test(txtEmail.value)){
   
           signInWithEmailAndPassword(auth, txtEmail.value, txtSenha.value)
           .then((userCredential) => {
-    
+            
             user = userCredential.user;
 
             user.providerData.forEach((profile) => {
@@ -102,8 +108,10 @@ btnEntrar.addEventListener('click',()=>{
             }
   
           })
-  
-    }
+          
+          
+        
+        }
   
   });
 
@@ -123,4 +131,6 @@ function usuarioLogado(){
     }
  
  };
+
+
  

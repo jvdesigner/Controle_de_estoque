@@ -13,6 +13,14 @@
 
 <body>
 
+        <!-- loading -->
+
+        <div id="objloading" class="h-full bg-black/30 fixed w-full z-10 top-0 hidden flex-col items-center justify-center gap-4">
+            
+            <span class="loading loading-spinner text-primary"></span>
+            <p class="text-lg font-semibold text-primary">Carregando</p>
+        </div>
+
     <!-- NAVBAR -->
     <div class="navbar bg-base-100 drop-shadow-lg">
         <div class="navbar-start">
@@ -102,7 +110,7 @@
                         </label>
                     </div>
                     <div class="form-control mt-6">
-                        <button class="btn btn-primary" id="btnEntrar">Entrar</button>
+                        <button class="btn btn-primary" id="btnEntrar" >Entrar</button>
                     </div>
                     <div class="form-control mt-6">
                         <button class="btn-link">Não tem uma conta?</button>
@@ -153,5 +161,7 @@
     <script type="module" src="firebase.js"></script>
     <script src="login.js"></script>
 </body>
+
+
 
 </html>
