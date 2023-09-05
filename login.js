@@ -4,8 +4,10 @@ const txtEmail = document.getElementById('txt-Email');
 const txtSenha = document.getElementById('txt-Senha');
 
 const txtvalidaremail = document.getElementById('txtvalidaremail');
+const txtvalidarsenha = document.getElementById('txtvalidarsenha');
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expressão regular para validação de email
+const senhaRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/; // Expressão regular para validação de senha
 
 
 const iconOlhoAberto = document.getElementById('olhoaberto');
@@ -86,6 +88,59 @@ txtEmail.addEventListener("blur", ()=> {
 
 
 })
+
+// Validar campo do senha
+
+txtSenha.addEventListener("keyup", ()=> {
+    if (senhaRegex.test(txtSenha.value)) {
+
+        txtSenha.classList.remove("input-primary");
+        txtSenha.classList.remove("input-error");
+
+        txtvalidarsenha.classList.remove("text-error");
+        txtSenha.classList.add("input-success");
+
+        txtvalidarsenha.classList.add("text-success");
+
+        txtvalidarsenha.textContent = "Senha válida!";
+        txtvalidarsenha.style.display="flex";
+
+    } else {
+
+        txtSenha.classList.remove("input-primary");
+        txtSenha.classList.remove("input-success");
+
+        txtSenha.classList.add("input-error");
+
+        txtvalidarsenha.classList.remove("text-success");
+        txtvalidarsenha.classList.add("text-error");
+
+        txtvalidarsenha.textContent = "Sua senha deve conter no mínimo 6 caracteres com numeros e letras";
+        txtvalidarsenha.style.display="flex";
+    }
+});
+
+txtSenha.addEventListener("blur", ()=> {
+
+    if (txtSenha.value === "") {
+    
+    txtvalidarsenha.style.display="none";
+
+    txtSenha.classList.add("input-primary");
+    txtSenha.classList.remove("input-error");
+    txtSenha.classList.remove("input-success");
+
+    }
+
+
+
+
+});
+
+
+
+
+
 
     
 

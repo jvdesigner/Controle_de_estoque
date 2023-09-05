@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📦 Controle de estoque</title>
     <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
 </head>
 
 <body>
@@ -42,16 +45,15 @@
 
     <!-- HERO -->
 
-    <div class="hero min-h-screen" style="background-image: url(https://images.unsplash.com/photo-1616401784845-180882ba9ba8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80);">
-        <div class="hero-overlay bg-opacity-60"></div>
-        <div class="hero-content text-center text-neutral-content">
-        <div class="max-w-md">
-            <h1 class="mb-5 text-5xl font-bold">Tenha o controle do seu estoque 📦</h1>
-            <p class="mb-5">Simplifique a gestão do seu estoque, reduza custos e aumente a eficiência com nossa plataforma intuitiva de controle de inventário. Gerencie produtos, rastreie movimentações e tome decisões informadas para impulsionar seus negócios</p>
+    <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold animate__animated animate__backInDown">Tenha o controle do seu estoque 📦</h1>
+            <p class="py-6 animate__animated animate__backInUp">Simplifique a gestão do seu estoque, reduza custos e aumente a eficiência com nossa plataforma intuitiva de controle de inventário. Gerencie produtos, rastreie movimentações e tome decisões informadas para impulsionar seus negócios</p>
             <a href="login.html"><button class="btn btn-primary">Começar</button></a>
+          </div>
         </div>
-        </div>
-    </div>
+      </div>
 
     
 
@@ -66,6 +68,7 @@
 
 
     <script src="index.js"></script>
+    <script type="module" src="firebase.js"></script>
 </body>
 
 </html>

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📦 Controle de estoque</title>
     <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
 </head>
 
 <body>
@@ -51,11 +54,11 @@
 
     <div class="hero min-h-screen bg-base-100 max-lg:py-20">
         <div class="hero-content flex-col lg:flex-row ">
-            <div class="text-center lg:text-left">
+            <div class="text-center lg:text-left animate__animated animate__fadeInLeft">
                 <h1 class="text-5xl font-bold">Entre na sua conta</h1>
                 <p class="py-6 opacity-50 text-primary">Preencha seu email e senha para entrar</p>
             </div>
-            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 animate__animated animate__fadeInRight">
                 <div class="card-body">
                     <div class="form-control">
                         <label class="label">
@@ -71,6 +74,7 @@
                         </label>
                         <div class="relative">
                             <input id="txt-Senha" maxlength="20" type="password" placeholder="password" class="input input-bordered input-primary w-full max-w-xs" />
+                            <p id="txtvalidarsenha" class="hidden mt-2 text-success max-md:text-sm">Senha Válida</p>
                             <svg id="olhoaberto" class="absolute right-2 top-3 w-6 cursor-pointer hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path  stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -89,10 +93,10 @@
                         </label>
                     </div>
                     <div class="form-control mt-6">
-                        <button class="btn btn-primary">Entrar</button>
+                        <button class="btn btn-primary" id="btnEntrar">Entrar</button>
                     </div>
                     <div class="form-control mt-6">
-                        <button class="btn-link">Já tem uma conta?</button>
+                        <button class="btn-link">Não tem uma conta?</button>
                     </div>
 
 
@@ -136,8 +140,8 @@
     </footer>
 
 
-
     <script src="index.js"></script>
+    <script type="module" src="firebase.js"></script>
     <script src="login.js"></script>
 </body>
 
