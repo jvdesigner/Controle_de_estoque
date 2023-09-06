@@ -6,12 +6,15 @@ import {
 
   getAuth,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut ,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider ,
   onAuthStateChanged,
   setPersistence,
   browserSessionPersistence   ,
-  sendPasswordResetEmail  
+  sendPasswordResetEmail ,
+  getRedirectResult 
 
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
 
@@ -37,18 +40,200 @@ let auth =getAuth(app);
 
 const btnEntrar = document.getElementById('btnEntrar');
 
+const btnCadastrar = document.getElementById('btnCadastrar');
+
 const objalert01 = document.getElementById('objalert01');
+
 const txtobjalert01 = document.getElementById('txtobjalert01');
 
 const objloading = document.getElementById('objloading');
 
 const btnRecuperarSenha = document.getElementById('btnRecuperarSenha');
 
+const btnEntrarGoogle = document.getElementById('btnEntrarGoogle');
+
+const provider = new GoogleAuthProvider();
+
+
 
 // -----------------------------------------------------------------------------------------------------------
 
 
 //  -- Funcoes --
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Criar conta
+
+if(btnCadastrar){
+
+  btnCadastrar.addEventListener('click',()=>{
+
+    if( senhaRegex.test( txtSenha.value ) && emailRegex.test( txtEmail.value ) ) {
+      
+      CriarLoginSenha() 
+
+    }
+
+  });
+
+
+}
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+
+function  CriarLoginSenha(){
+
+  salvarLocalmenteCriarConta()
+  
+  .then((userCredential) => {
+    
+    let user = userCredential.user;
+
+      user.providerData.forEach((profile) => {
+      console.log("UID: " + user.uid);
+      console.log("Sign-in provider: " + profile.providerId);
+      console.log("  Provider-specific UID: " + profile.uid);
+      console.log("  Name: " + profile.displayName);
+      console.log("  Email: " + profile.email);
+      console.log("  Photo URL: " + profile.photoURL);
+
+    });
+
+              objalert01.classList.remove("input-error");
+              objalert01.classList.remove("alert-warning");
+              objalert01.classList.add("alert-success");
+
+              objalert01.style.display="flex";
+              txtobjalert01.textContent="Usuário cadastrado com sucesso";
+
+              setTimeout(function() {
+                
+                objalert01.style.display="none";
+                
+                window.location.href = "login.html";
+              
+              }, 4000);
+
+              window.location.href = "home.html";
+
+    
+
+  })
+  .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+
+      switch (errorMessage) {
+
+        case "Firebase: Error (auth/user-not-found).":
+
+            objalert01.classList.remove("input-error");
+            objalert01.classList.add("alert-warning");
+
+            objalert01.style.display="flex";
+            txtobjalert01.textContent="Usuário não encontrado";
+
+            setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+            break;
+
+        case "Firebase: Error (auth/email-already-in-use).":
+
+            objalert01.classList.remove("input-error");
+            objalert01.classList.add("alert-warning");
+
+            objalert01.style.display="flex";
+            txtobjalert01.textContent="Email já cadastrado";
+
+            setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+            break;
+
+        
+        default:
+
+          console.log("Erro Encontrado: " + errorCode + " - " + errorMessage);
+
+
+
+      }
+
+  });
+  
+  
+
+}
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+
+// Autenticar com o Google
+
+
+
+if(btnEntrarGoogle){
+
+
+  btnEntrarGoogle.addEventListener('click',()=>{
+
+    signInWithPopup(auth, provider)
+
+  .then((result) => {
+    
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+
+    const token = credential.accessToken;
+
+    const user = result.user;
+
+    console.log('credencial: ' + credential);
+    console.log('token: ' + token);
+
+    console.log(JSON.stringify(user));
+
+    window.location.href = "home.html";
+   
+  }).catch((error) => {
+    
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    
+    const email = error.customData.email;
+    
+    const credential = GoogleAuthProvider.credentialFromError(error);
+
+    console.log('Codigo: ' + errorCode);
+    console.log('Mensagem: ' + errorMessage);
+    console.log('Email: ' + email);
+    console.log('Credencial: ' + credential);
+   
+  });
+
+  });
+
+
+}
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------
 
 
 // Redefinicao de senha
@@ -194,6 +379,8 @@ if(btnEntrar){
 
       alert('Usuário logado com sucesso!');
 
+      window.location.href = "home.html";
+
       
 
     })
@@ -305,6 +492,65 @@ function salvarLocalmente(){
 // -----------------------------------------------------------------------------------------------------------
 
 
+// antes de criar conta, salvar localmente
+
+function salvarLocalmenteCriarConta(){
+
+  return setPersistence(auth, browserSessionPersistence)
+    .then(() => {
+      
+      return createUserWithEmailAndPassword(auth, txtEmail.value, txtSenha.value);
+
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+
+      switch (errorMessage) {
+
+        case "Firebase: Error (auth/user-not-found).":
+
+            objalert01.classList.remove("input-error");
+            objalert01.classList.add("alert-warning");
+
+            objalert01.style.display="flex";
+            txtobjalert01.textContent="Usuário não encontrado";
+
+            setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+            break;
+
+        case "Firebase: Error (auth/email-already-in-use).":
+
+            objalert01.classList.remove("input-error");
+            objalert01.classList.add("alert-warning");
+
+            objalert01.style.display="flex";
+            txtobjalert01.textContent="Email já cadastrado";
+
+            setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+            break;
+
+        
+        default:
+
+          console.log("Falha ao salvar localmente: " + errorCode + " - " + errorMessage);
+
+
+
+      }
+
+  });
+
+}
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+
 // Deslogar usuario
 
 function deslogarUsuario(){
@@ -341,7 +587,7 @@ function verificarDadosUsuarioLogado(){
           console.log("  Email: " + profile.email);
           console.log("  Photo URL: " + profile.photoURL);
         });
-        {alert('usuario já está logado')}
+        {alert('O usuario já está logado')}
       }
 
       else
@@ -358,6 +604,7 @@ function verificarDadosUsuarioLogado(){
 
 // chamando funcoes
 
+//deslogarUsuario();
 verificarDadosUsuarioLogado()
 
 
