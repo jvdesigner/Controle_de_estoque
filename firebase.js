@@ -58,6 +58,8 @@ const provider = new GoogleAuthProvider();
 
 const imgUser = document.getElementById("imgUser");
 
+let imgUsuario = "";
+
 // -----------------------------------------------------------------------------------------------------------
 
 
@@ -109,6 +111,10 @@ function  CriarLoginSenha(){
       console.log("  Email: " + profile.email);
       console.log("  Photo URL: " + profile.photoURL);
 
+      imgUsuario=profile.photoURL;
+      
+
+
     });
 
               objalert01.classList.remove("input-error");
@@ -127,9 +133,10 @@ function  CriarLoginSenha(){
               }, 4000);
 
 
-              if(imgUser){imgUser.src=profile.photoURL}; 
-
+              
               window.location.href = "home.html";
+
+              if(imgUser&&imgUsuario){imgUser.src=imgUsuario}; 
 
     
 
@@ -211,9 +218,21 @@ if(btnEntrarGoogle){
 
     console.log(JSON.stringify(user));
 
-    if(imgUser){imgUser.src=profile.photoURL}; 
+        user.providerData.forEach((profile) => {
+        console.log("UID: " + user.uid);
+        console.log("Sign-in provider: " + profile.providerId);
+        console.log("  Provider-specific UID: " + profile.uid);
+        console.log("  Name: " + profile.displayName);
+        console.log("  Email: " + profile.email);
+        console.log("  Photo URL: " + profile.photoURL);
+
+        imgUsuario=profile.photoURL;
+
+        })
 
     window.location.href = "home.html";
+
+    
    
   }).catch((error) => {
     
@@ -232,6 +251,8 @@ if(btnEntrarGoogle){
 
 
 }
+
+
 
 
 
@@ -379,13 +400,17 @@ if(btnEntrar){
         console.log("  Email: " + profile.email);
         console.log("  Photo URL: " + profile.photoURL);
 
+        imgUsuario=profile.photoURL;
+
       });
 
       //alert('Usuário logado com sucesso!');
 
-      if(imgUser){imgUser.src=profile.photoURL}; 
+      
 
       window.location.href = "home.html";
+
+      
 
       
 
@@ -603,6 +628,8 @@ function verificarDadosUsuarioLogado(){
 
   onAuthStateChanged(auth, (user) => {
 
+    
+
       if (user !== null) {
         user.providerData.forEach((profile) => {
           console.log("Sign-in provider: " + profile.providerId);
@@ -610,14 +637,23 @@ function verificarDadosUsuarioLogado(){
           console.log("  Name: " + profile.displayName);
           console.log("  Email: " + profile.email);
           console.log("  Photo URL: " + profile.photoURL);
-          if(imgUser){imgUser.src=profile.photoURL}; 
+
+          imgUsuario=profile.photoURL;
+          
         });
-        //{alert('O usuario já está logado')}
+        if(imgUser&&imgUsuario){imgUser.src=imgUsuario}; 
+
+        if (window.location.pathname.includes("login.html")) {
+          window.location.href = "home.html";
+      }
+        
+        
+        return true
       }
 
       else
 
-      {}//alert('usuario deslogado')}
+      {return false}//alert('usuario deslogado')}
 
     })
 
@@ -630,7 +666,10 @@ function verificarDadosUsuarioLogado(){
 // chamando funcoes
 
 //deslogarUsuario();
+
 verificarDadosUsuarioLogado()
+
+
 
 
 

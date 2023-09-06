@@ -7906,6 +7906,10 @@ details.collapse summary::-webkit-details-marker {
   inset: -0.25rem;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
 .end-1 {
   inset-inline-end: 0.25rem;
 }
@@ -7920,14 +7924,6 @@ details.collapse summary::-webkit-details-marker {
 
 .top-3 {
   top: 0.75rem;
-}
-
-.bottom-0 {
-  bottom: 0px;
-}
-
-.left-0 {
-  left: 0px;
 }
 
 .isolate {
@@ -7972,16 +7968,6 @@ details.collapse summary::-webkit-details-marker {
 
 .clear-none {
   clear: none;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 
 .mt-2 {
@@ -8111,10 +8097,6 @@ details.collapse summary::-webkit-details-marker {
   height: 100%;
 }
 
-.h-5 {
-  height: 1.25rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
 }
@@ -8143,20 +8125,8 @@ details.collapse summary::-webkit-details-marker {
   width: 100%;
 }
 
-.w-5 {
-  width: 1.25rem;
-}
-
 .w-screen {
   width: 100vw;
-}
-
-.w-\[9\] {
-  width: 9;
-}
-
-.w-\[90\%\] {
-  width: 90%;
 }
 
 .max-w-md {
@@ -9157,10 +9127,6 @@ details.collapse summary::-webkit-details-marker {
   background-color: rgb(0 0 0 / 0.3);
 }
 
-.bg-transparent {
-  background-color: transparent;
-}
-
 .decoration-slice {
   -webkit-box-decoration-break: slice;
           box-decoration-break: slice;
@@ -9292,11 +9258,6 @@ details.collapse summary::-webkit-details-marker {
   padding-bottom: 1.5rem;
 }
 
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -9366,11 +9327,6 @@ details.collapse summary::-webkit-details-marker {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 .text-xs {
@@ -9483,16 +9439,6 @@ details.collapse summary::-webkit-details-marker {
   color: hsl(var(--su) / var(--tw-text-opacity));
 }
 
-.text-base-100 {
-  --tw-text-opacity: 1;
-  color: hsl(var(--b1) / var(--tw-text-opacity));
-}
-
-.text-base-200 {
-  --tw-text-opacity: 1;
-  color: hsl(var(--b2) / var(--tw-text-opacity));
-}
-
 .underline {
   text-decoration-line: underline;
 }
@@ -9541,18 +9487,6 @@ details.collapse summary::-webkit-details-marker {
 
 .opacity-50 {
   opacity: 0.5;
-}
-
-.opacity-60 {
-  opacity: 0.6;
-}
-
-.opacity-90 {
-  opacity: 0.9;
-}
-
-.opacity-95 {
-  opacity: 0.95;
 }
 
 .bg-blend-normal {
