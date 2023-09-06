@@ -40,6 +40,8 @@ let auth =getAuth(app);
 
 const btnEntrar = document.getElementById('btnEntrar');
 
+const btnSairConta = document.getElementById('btnSairConta');
+
 const btnCadastrar = document.getElementById('btnCadastrar');
 
 const objalert01 = document.getElementById('objalert01');
@@ -54,7 +56,7 @@ const btnEntrarGoogle = document.getElementById('btnEntrarGoogle');
 
 const provider = new GoogleAuthProvider();
 
-
+const imgUser = document.getElementById("imgUser");
 
 // -----------------------------------------------------------------------------------------------------------
 
@@ -123,6 +125,9 @@ function  CriarLoginSenha(){
                 window.location.href = "login.html";
               
               }, 4000);
+
+
+              if(imgUser){imgUser.src=profile.photoURL}; 
 
               window.location.href = "home.html";
 
@@ -206,6 +211,8 @@ if(btnEntrarGoogle){
 
     console.log(JSON.stringify(user));
 
+    if(imgUser){imgUser.src=profile.photoURL}; 
+
     window.location.href = "home.html";
    
   }).catch((error) => {
@@ -213,14 +220,11 @@ if(btnEntrarGoogle){
     const errorCode = error.code;
     const errorMessage = error.message;
     
-    const email = error.customData.email;
-    
-    const credential = GoogleAuthProvider.credentialFromError(error);
+
 
     console.log('Codigo: ' + errorCode);
     console.log('Mensagem: ' + errorMessage);
-    console.log('Email: ' + email);
-    console.log('Credencial: ' + credential);
+
    
   });
 
@@ -377,7 +381,9 @@ if(btnEntrar){
 
       });
 
-      alert('Usuário logado com sucesso!');
+      //alert('Usuário logado com sucesso!');
+
+      if(imgUser){imgUser.src=profile.photoURL}; 
 
       window.location.href = "home.html";
 
@@ -557,8 +563,13 @@ function deslogarUsuario(){
 
   signOut(auth)
   .then(() => {
-    // O usuário foi deslogado com sucesso
+
+    //alert('Usuário deslogado com sucesso');
     console.log("Usuário deslogado com sucesso");
+    
+    window.location.href = "login.html";
+
+    
   })
   .catch((error) => {
     // Lidar com erros, se houver
@@ -567,6 +578,19 @@ function deslogarUsuario(){
 
 
 };
+
+
+if(btnSairConta){
+
+  btnSairConta.addEventListener('click',()=>{
+
+    deslogarUsuario()
+
+  });
+
+
+}
+
 
 
 // -----------------------------------------------------------------------------------------------------------
@@ -586,13 +610,14 @@ function verificarDadosUsuarioLogado(){
           console.log("  Name: " + profile.displayName);
           console.log("  Email: " + profile.email);
           console.log("  Photo URL: " + profile.photoURL);
+          if(imgUser){imgUser.src=profile.photoURL}; 
         });
-        {alert('O usuario já está logado')}
+        //{alert('O usuario já está logado')}
       }
 
       else
 
-      {alert('usuario deslogado')}
+      {}//alert('usuario deslogado')}
 
     })
 

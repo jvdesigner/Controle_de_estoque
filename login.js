@@ -5,9 +5,6 @@
 const txtEmail = document.getElementById('txt-Email');
 const txtSenha = document.getElementById('txt-Senha');
 
-if(txtEmail){txtEmail.value="nogueirajva@gmail.com"};
-if(txtSenha){txtSenha.value="123456jv";}; 
-
 const txtvalidaremail = document.getElementById('txtvalidaremail');
 const txtvalidarsenha = document.getElementById('txtvalidarsenha');
 
