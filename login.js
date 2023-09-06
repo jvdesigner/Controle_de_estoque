@@ -3,6 +3,9 @@
 const txtEmail = document.getElementById('txt-Email');
 const txtSenha = document.getElementById('txt-Senha');
 
+txtEmail.value="nogueirajva@gmail.com";
+txtSenha.value="123456jv";
+
 const txtvalidaremail = document.getElementById('txtvalidaremail');
 const txtvalidarsenha = document.getElementById('txtvalidarsenha');
 
