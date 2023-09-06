@@ -10,9 +10,13 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   setPersistence,
-  browserSessionPersistence    
+  browserSessionPersistence   ,
+  sendPasswordResetEmail  
 
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+
+
+// -----------------------------------------------------------------------------------------------------------
 
 
 
@@ -38,18 +42,117 @@ const txtobjalert01 = document.getElementById('txtobjalert01');
 
 const objloading = document.getElementById('objloading');
 
+const btnRecuperarSenha = document.getElementById('btnRecuperarSenha');
 
-// Funcoes
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+//  -- Funcoes --
+
+
+// Redefinicao de senha
+
+function redefinirSenha(){
+
+  sendPasswordResetEmail(auth, txtEmail.value)
+  .then(() => {
+    
+              objalert01.classList.remove("input-error");
+              objalert01.classList.remove("alert-warning");
+              objalert01.classList.add("alert-success");
+
+              objalert01.style.display="flex";
+              txtobjalert01.textContent="Verifique seu email para alterar a senha";
+
+              setTimeout(function() {
+                
+                objalert01.style.display="none";
+                
+                window.location.href = "login.html";
+              
+              }, 4000);
+
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+
+
+    switch (errorMessage) {
+
+      case "Firebase: Error (auth/user-not-found).":
+
+          objalert01.classList.remove("alert-success");  
+          objalert01.classList.remove("input-error");
+          objalert01.classList.add("alert-warning");
+
+          objalert01.style.display="flex";
+          txtobjalert01.textContent="Usuário não encontrado";
+
+          setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+          break;
+
+      
+      default:
+
+          objalert01.classList.remove("alert-success");      
+          objalert01.classList.remove("input-warning");
+          objalert01.classList.add("alert-error");
+
+          objalert01.style.display="flex";
+          txtobjalert01.textContent=errorCode + " - " + errorMessage;
+
+          console.log("Erro Encontrado: " + errorCode + " - " + errorMessage);
+
+          setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+    }
+
+
+
+
+  });
+
+
+};
+
+
+if(btnRecuperarSenha){
+
+  btnRecuperarSenha.addEventListener('click',()=>{
+
+    if( emailRegex.test( txtEmail.value ) ) {
+      
+      redefinirSenha() 
+
+    }
+
+  });
+
+
+}
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Funcao de controlar mensagem de carregando
 
 function showloading(){objloading.style.display="flex";};
 function hideloading(){objloading.style.display="none";};
 
 
+// -----------------------------------------------------------------------------------------------------------
+
 
 // Fazer login
 
+if(btnEntrar){
 
-btnEntrar.addEventListener('click',()=>{
+  btnEntrar.addEventListener('click',()=>{
 
     if( senhaRegex.test( txtSenha.value ) && emailRegex.test( txtEmail.value ) ) {
       
@@ -60,7 +163,16 @@ btnEntrar.addEventListener('click',()=>{
   });
 
 
-  // Login Auth
+}
+
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+  // Login Autenticando com firebase
 
   function  verificarLoginSenha(){
 
@@ -119,13 +231,9 @@ btnEntrar.addEventListener('click',()=>{
           
           default:
 
-              objalert01.classList.remove("input-warning");
-              objalert01.classList.add("alert-error");
+            console.log("Erro Encontrado: " + errorCode + " - " + errorMessage);
 
-              objalert01.style.display="flex";
-              txtobjalert01.textContent=errorCode + " - " + errorMessage;
 
-              setTimeout(function() {objalert01.style.display="none";}, 4000);
  
         }
 
@@ -135,7 +243,11 @@ btnEntrar.addEventListener('click',()=>{
   
   }
 
-  // auto logar localmente
+  
+// -----------------------------------------------------------------------------------------------------------
+
+
+// antes de realizar o login, salvar localmente
 
 function salvarLocalmente(){
 
@@ -146,13 +258,52 @@ function salvarLocalmente(){
 
     })
     .catch((error) => {
-      // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert('Erro na persistencia : '+errorMessage);
-    });
+
+
+      switch (errorMessage) {
+
+        case "Firebase: Error (auth/user-not-found).":
+
+            objalert01.classList.remove("input-error");
+            objalert01.classList.add("alert-warning");
+
+            objalert01.style.display="flex";
+            txtobjalert01.textContent="Usuário não encontrado";
+
+            setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+            break;
+
+        case "Firebase: Error (auth/wrong-password).":
+
+            objalert01.classList.remove("input-error");
+            objalert01.classList.add("alert-warning");
+
+            objalert01.style.display="flex";
+            txtobjalert01.textContent="Senha Incorreta";
+
+            setTimeout(function() {objalert01.style.display="none";}, 4000);
+
+            break;
+
+        
+        default:
+
+          console.log("Falha ao salvar localmente: " + errorCode + " - " + errorMessage);
+
+
+
+      }
+
+  });
 
 }
+
+
+// -----------------------------------------------------------------------------------------------------------
+
 
 // Deslogar usuario
 
@@ -170,6 +321,9 @@ function deslogarUsuario(){
 
 
 };
+
+
+// -----------------------------------------------------------------------------------------------------------
 
 
 // Verificar se o usuario esta logado
@@ -198,6 +352,11 @@ function verificarDadosUsuarioLogado(){
 
 
 }
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+// chamando funcoes
 
 verificarDadosUsuarioLogado()
 
