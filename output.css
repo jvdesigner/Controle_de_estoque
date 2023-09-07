@@ -8109,6 +8109,10 @@ details.collapse summary::-webkit-details-marker {
   min-height: 100vh;
 }
 
+.w-1\/3 {
+  width: 33.333333%;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -8137,35 +8141,6 @@ details.collapse summary::-webkit-details-marker {
   width: 100vw;
 }
 
-.w-1\/2 {
-  width: 50%;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
-}
-
-.w-4\/5 {
-  width: 80%;
-}
-
-.w-24 {
-  width: 6rem;
-}
-
-.w-1\/3 {
-  width: 33.333333%;
-}
-
-.min-w-full {
-  min-width: 100%;
-}
-
-.min-w-min {
-  min-width: -moz-min-content;
-  min-width: min-content;
-}
-
 .max-w-md {
   max-width: 28rem;
 }
@@ -8176,10 +8151,6 @@ details.collapse summary::-webkit-details-marker {
 
 .max-w-xs {
   max-width: 20rem;
-}
-
-.flex-none {
-  flex: none;
 }
 
 .flex-shrink {
@@ -8206,10 +8177,6 @@ details.collapse summary::-webkit-details-marker {
   flex-grow: 1;
 }
 
-.grow-0 {
-  flex-grow: 0;
-}
-
 .table-auto {
   table-layout: auto;
 }
@@ -8232,11 +8199,6 @@ details.collapse summary::-webkit-details-marker {
 
 .border-separate {
   border-collapse: separate;
-}
-
-.translate-x-20 {
-  --tw-translate-x: 5rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .translate-x-24 {
@@ -9208,6 +9170,10 @@ details.collapse summary::-webkit-details-marker {
           box-decoration-break: clone;
 }
 
+.bg-cover {
+  background-size: cover;
+}
+
 .bg-fixed {
   background-attachment: fixed;
 }
@@ -9400,6 +9366,11 @@ details.collapse summary::-webkit-details-marker {
   line-height: 1.75rem;
 }
 
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -9408,11 +9379,6 @@ details.collapse summary::-webkit-details-marker {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 .font-bold {
@@ -10004,11 +9970,6 @@ details.collapse summary::-webkit-details-marker {
 }
 
 @media not all and (min-width: 768px) {
-  .max-md\:my-20 {
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-  }
-
   .max-md\:flex {
     display: flex;
   }
@@ -10037,10 +9998,6 @@ details.collapse summary::-webkit-details-marker {
 @media (min-width: 1024px) {
   .lg\:flex-row {
     flex-direction: row;
-  }
-
-  .lg\:flex-row-reverse {
-    flex-direction: row-reverse;
   }
 
   .lg\:text-left {

@@ -87,6 +87,24 @@
 
       </div>
 
+      <!-- alert -->
+
+    <div id="objalert02" class="alert alert-warning animate__animated animate__fadeIn hidden">
+
+      <svg id="svgAlert" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+      </svg>
+      
+
+        <svg id="svgOk" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+        
+        
+        <span id="txtobjalert02">Mensagem de retorno</span>
+      
+    </div>
+
 
 
     <!-- HERO -->
@@ -124,7 +142,7 @@
               <label class="label">
                   <span class="label-text">Email</span>
               </label>
-              <input id="txt-Email" maxlength="100" type="email" placeholder="email"
+              <input id="txt-Email" maxlength="100" type="email" placeholder="email" required
                   class="input input-bordered input-primary w-full max-w-xs" />
               <p id="txtvalidaremail" class="hidden mt-2 text-success text-sm">Email Válido</p>
           </div>
@@ -135,7 +153,8 @@
               <label class="label">
                 <span class="label-text">Nome</span>
               </label>
-              <input type="text" maxlength="200" placeholder="Nome" id="inputNamePerfil" class="input input-bordered input-primary w-full max-w-xs" />
+              <input type="text" maxlength="200" required placeholder="Nome" id="inputNamePerfil" class="input input-bordered input-primary w-full max-w-xs" />
+              <p id="obrigatorioNome" class=" mt-2 text-error text-sm hidden">Campo Obrigatório</p>
             </div>
 
             <span class="label-text"><br></span>

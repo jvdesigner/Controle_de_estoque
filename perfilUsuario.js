@@ -1,5 +1,8 @@
 
+
 // import
+
+
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 
@@ -7,8 +10,12 @@ import {
 
   getAuth,
   onAuthStateChanged,
+  updateProfile 
 
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+
+import { getStorage, ref } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
+
 
 
 // -----------------------------------------------------------------------------------------------------------
@@ -16,6 +23,8 @@ import {
 
 
 // variáveis
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHIvLMMn7BxwZS8X3ruSIJ7aUnq7phTiw",
@@ -26,11 +35,16 @@ const firebaseConfig = {
   appId: "1:62421934587:web:2107381b122bcce6b6ab5e"
 };
 
+
 const app = initializeApp(firebaseConfig);
 
 let auth =getAuth(app);
 
+const storage = getStorage();
+
+
 const formAlterarPerfil = document.getElementById('formAlterarPerfil');
+
 
 const imgUserPerfil2 = document.getElementById('imgUser');
 
@@ -38,17 +52,41 @@ const imgUserPerfil = document.getElementById('imgUserPerfil');
 
 const inputObjImgPerfil = document.getElementById('inputObjImgPerfil');
 
+
 const txtEmail = document.getElementById('txt-Email');
 
-const inputNamePerfil = document.getElementById('inputNamePerfil');
+
 
 const btnsalvarPerfil = document.getElementById('btnsalvarPerfil');
 
-let SignInProvider        = ""    ;
-let ProviderSpecificUID   = ""           ;
-let nameUser              =  ""  ;
-let emailUser             = ""         ;
-let PhotoURL              = ""      ;
+
+const objalert02 = document.getElementById('objalert02');
+
+const svgAlert = document.getElementById('svgAlert');
+
+const svgOk = document.getElementById('svgOk');
+
+const txtobjalert02 = document.getElementById('txtobjalert02');
+
+
+const inputNamePerfil = document.getElementById('inputNamePerfil');
+
+const obrigatorioNome = document.getElementById('obrigatorioNome');
+
+
+
+
+let SignInProvider        = ""  ;
+let ProviderSpecificUID   = ""  ;
+let nameUser              = ""  ;
+let emailUser             = ""  ;
+let PhotoURL              = ""  ;
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Consultar dados do usuario
 
 
 
@@ -90,7 +128,14 @@ function recuperarDadosUsuario(){
 
 };
 
-recuperarDadosUsuario();
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Apresentar imagem
+
+
 
 inputObjImgPerfil.addEventListener("change", function() {
 
@@ -113,14 +158,197 @@ inputObjImgPerfil.addEventListener("change", function() {
 
 
 
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Apresentar alerta
+
+// vCor = alert-success | alert-warning | alert-error
 
 
 
-// btneditarPerfil.addEventListener('click', ()=>{
-//     formMostrarPerfil.style.display="none";
-//     formAlterarPerfil.style.display="none";
+function mostrarAlerta(vMensagem,vCor){
 
-//     formAlterarPerfil.style.display="flex";
-// });
+    objalert02.classList.remove("alert-success");
+    objalert02.classList.remove("alert-warning");
+    objalert02.classList.remove("alert-error");
+
+    svgAlert.style.display="none";
+    svgOk.style.display="none";
+
+    txtobjalert02.innerText=vMensagem;
+
+
+    switch (vCor) {
+
+        case "alert-success":
+
+            objalert02.classList.add("alert-success");
+
+            svgOk.style.display="flex";
+          
+        break;
+
+        case "alert-warning":
+
+            objalert02.classList.add("alert-warning");
+
+            svgAlert.style.display="flex";
+          
+        break;
+       
+        default:
+
+            objalert02.classList.add("alert-error");
+
+            svgAlert.style.display="flex";
+        
+    };
+
+
+    objalert02.style.display="flex";
+
+    setTimeout(function() {
+        objalert02.style.display = "none";
+    }, 4000);
+    
+
+};
+
+//mostrarAlerta("Preencha todos os campos","alert-warning");
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Verificar Campos obrigatorios
+
+
+// Campo nome
+
+function verificarCampoObrigatorio(vCampo,vtxtMsg){
+
+    let resultado = true;
+
+    if(vCampo){
+
+        if(vCampo.value==''){
+
+            vCampo.classList.remove("input-primary");
+            vCampo.classList.remove("input-success");
+
+            vCampo.classList.add("input-error");
+
+            vtxtMsg.classList.remove("text-success");
+            vtxtMsg.classList.add("text-error");
+
+            vtxtMsg.textContent = "Campo Obrigatorio";
+            vtxtMsg.style.display="flex";
+
+            resultado = false;
+
+        }
+
+        else
+        {
+            vCampo.classList.remove("input-primary");
+            vCampo.classList.remove("input-error");
+
+            vCampo.classList.add("input-success");
+            vtxtMsg.style.display="none";
+            resultado = true;
+        }
+
+        
+
+    }
+
+    return resultado;
+    
+};
+
+
+if(inputNamePerfil){
+
+    inputNamePerfil.addEventListener("keyup", ()=> {
+
+
+        verificarCampoObrigatorio(inputNamePerfil,obrigatorioNome)
+
+    });
+
+}
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+
+
+//btnsalvarPerfil Salvar Perfil
+
+
+btnsalvarPerfil.addEventListener("click", ()=> {
+
+
+if( inputNamePerfil.value !=='' && txtEmail.value !=='' ){
+
+    let imgUsuariosave = ""; // v imagem do usuario
+
+    const file = inputObjImgPerfil.files[0]; //  imagem do usuario
+
+    if (file) { 
+
+        const storageRef = ref(storage, SignInProvider + '.jpg');
+
+        uploadBytes(storageRef, file).then((snapshot) => {
+
+            alert('upload concluido');
+
+            getDownloadURL(storageRef).then((url) => {imgUsuariosave=url});
+
+        });
+
+
+
+     } else { imgUsuariosave = PhotoURL };
+
+    // Salvar imagem e nome
+
+    updateProfile(auth.currentUser, {
+
+        displayName: inputNamePerfil.value , photoURL: imgUsuariosave
+
+      }).then(() => {
+
+        alert('Dados atualizados com sucesso');
+
+
+      }).catch((error) => {
+
+        alert('erro - verifique o erro no codigo');
+
+
+      });
+
+
+};
+
+
+});
+
+
+
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Ao carregar a pagina 
+
+
+recuperarDadosUsuario();
+
 
 

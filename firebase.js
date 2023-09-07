@@ -698,8 +698,19 @@ function verificarDadosUsuarioLogado(){
 
       else
 
-      {   if (window.location.pathname.includes("home.html")) {window.location.href = "login.html";}
-        return false}//alert('usuario deslogado')}
+      {   
+        if (  
+          
+            !window.location.pathname.includes("index.html") &&
+            !window.location.pathname.includes("criarConta.html") &&
+            !window.location.pathname.includes("login.html")
+
+              
+
+          ) {window.location.href = "login.html";};
+
+        return false
+      }
 
     })
 
