@@ -60,6 +60,10 @@ const imgUser = document.getElementById("imgUser"); // imagem do usuario
 
 const imgUserPerfil = document.getElementById("imgUserPerfil"); // imagem do usuario
 
+const mostrarNome = document.getElementById('mostrarNome');
+
+const mostrarEmail = document.getElementById('mostrarEmail');
+
 let imgUsuario = "";
 
 let SignInProvider        = ""    ;
@@ -93,6 +97,10 @@ if (window.location.href.includes("perfilUsuario.html")) {
           });
 
         if(imgUserPerfil&&PhotoURL){imgUserPerfil.src=PhotoURL}; 
+
+        if(mostrarNome){mostrarNome.innerText=nameUser};
+        
+        if(mostrarEmail){mostrarEmail.innerText=emailUser};
       
       }
 

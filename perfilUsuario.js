@@ -10,11 +10,12 @@ import {
 
   getAuth,
   onAuthStateChanged,
-  updateProfile 
+  updateProfile ,
+  
 
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
 
-import { getStorage, ref } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
+import { getStorage, ref,uploadBytes ,getDownloadURL  } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
 
 
 
@@ -54,6 +55,7 @@ const inputObjImgPerfil = document.getElementById('inputObjImgPerfil');
 
 
 const txtEmail = document.getElementById('txt-Email');
+
 
 
 
@@ -111,11 +113,13 @@ function recuperarDadosUsuario(){
 
         if(imgUserPerfil2&&PhotoURL){imgUserPerfil2.src=PhotoURL}; 
 
-
+        
 
         if(txtEmail){txtEmail.value=emailUser}; 
 
         if(inputNamePerfil){inputNamePerfil.value=nameUser}; 
+
+        
     
     }
 
@@ -290,7 +294,7 @@ if(inputNamePerfil){
 //btnsalvarPerfil Salvar Perfil
 
 
-btnsalvarPerfil.addEventListener("click", ()=> {
+btnsalvarPerfil.addEventListener("click", async ()=> {
 
 
 if( inputNamePerfil.value !=='' && txtEmail.value !=='' ){
@@ -301,15 +305,11 @@ if( inputNamePerfil.value !=='' && txtEmail.value !=='' ){
 
     if (file) { 
 
-        const storageRef = ref(storage, SignInProvider + '.jpg');
+        const storageRef = ref(storage, file.name);
 
-        uploadBytes(storageRef, file).then((snapshot) => {
+        uploadBytes(storageRef, file)
 
-            alert('upload concluido');
-
-            getDownloadURL(storageRef).then((url) => {imgUsuariosave=url});
-
-        });
+        await getDownloadURL(storageRef).then((url) => {imgUsuariosave=url})
 
 
 
@@ -323,12 +323,19 @@ if( inputNamePerfil.value !=='' && txtEmail.value !=='' ){
 
       }).then(() => {
 
-        alert('Dados atualizados com sucesso');
+        mostrarAlerta('Dados atualizados com sucesso','alert-success');
+
+        setTimeout(function() {
+            window.location.href = "perfilUsuario.html";
+        }, 2000);
+        
+        
 
 
       }).catch((error) => {
 
-        alert('erro - verifique o erro no codigo');
+
+        mostrarAlerta('Erro ao tentar salvar','alert-error');
 
 
       });
