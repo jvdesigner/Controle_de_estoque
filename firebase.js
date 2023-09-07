@@ -690,9 +690,7 @@ function verificarDadosUsuarioLogado(){
         });
         if(imgUser&&imgUsuario){imgUser.src=imgUsuario}; 
 
-        if (window.location.pathname.includes("login.html")) {
-          window.location.href = "home.html";
-      }
+        if (window.location.pathname.includes("login.html")) {window.location.href = "home.html";}
         
         
         return true
@@ -700,7 +698,8 @@ function verificarDadosUsuarioLogado(){
 
       else
 
-      {return false}//alert('usuario deslogado')}
+      {   if (window.location.pathname.includes("home.html")) {window.location.href = "login.html";}
+        return false}//alert('usuario deslogado')}
 
     })
 

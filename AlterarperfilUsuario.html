@@ -63,7 +63,7 @@
               </div>
             </label>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Perfil</a></li>
+              <li><a href="perfilUsuario.html">Perfil</a></li>
               <li><a>Configurações</a></li>
               <li id="btnSairConta"><a>Sair</a></li>
               <li></li>
@@ -91,25 +91,64 @@
 
     <!-- HERO -->
 
-    <div class="hero min-h-screen bg-base-200 " id="formMostrarPerfil">
+    <div class="hero min-h-screen bg-base-200 max-md:py-20">
+      
+      <div class="hero-content flex-col lg:flex-row animate__animated animate__backInRight">
+        
+       
+        
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          
+          <div class="card-body">
 
-        <div class="hero-content flex-col text-center card-body card shadow-2xl bg-base-100 px-10 py-16 animate__animated animate__backInLeft">
-
-            <img class="rounded-full max-w-sm shadow-2xl scale-125 mb-10" id="imgUserPerfil" src="https://i.ibb.co/0QFXDRn/image.png" />
-
-            <div>
-
-                <h1 class="text-3xl font-bold mb-5">João Victor Nogueira</h1>
-
-                <p class="py-6 text-xl mb-10">nogueirajva@gmail.com</p>
-
-                <button class="btn btn-primary" id="btneditarPerfil"> <a href="AlterarperfilUsuario.html">Editar</a></button>
-
+            <div class="form-control ">
+              <div class="text-center lg:text-left">
+                <h1 class="text-xl font-bold">Altere seu perfil ✍️</h1>
+                <p class="py-6 opacity-50 text-primary">Preencha o formulário com seus dados</p>
+              </div>
+              <div class="text-center lg:text-left"><br></div>
+              <div class="avatar">
+                <div class="w-1/3 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 translate-x-24">
+                  <img id="imgUserPerfil" src="https://i.ibb.co/0QFXDRn/image.png" class="bg-cover" />
+                </div>
+              </div>
+              <label class="label">
+                <span class="label-text"><br></span>
+              </label>
+              <input type="file" id="inputObjImgPerfil" name="imagem" accept="image/jpeg, image/png" class="file-input file-input-bordered file-input-primary file-input-sm max-w-xs" />
             </div>
 
-        </div>
+            <span class="label-text"><br></span>
+            
+            <div class="form-control">
+              <label class="label">
+                  <span class="label-text">Email</span>
+              </label>
+              <input id="txt-Email" maxlength="100" type="email" placeholder="email"
+                  class="input input-bordered input-primary w-full max-w-xs" />
+              <p id="txtvalidaremail" class="hidden mt-2 text-success text-sm">Email Válido</p>
+          </div>
 
+   
+            
+          <div class="form-control">
+              <label class="label">
+                <span class="label-text">Nome</span>
+              </label>
+              <input type="text" maxlength="200" placeholder="Nome" id="inputNamePerfil" class="input input-bordered input-primary w-full max-w-xs" />
+            </div>
+
+            <span class="label-text"><br></span>
+
+            
+
+            <div class="form-control mt-6">
+              <button class="btn btn-primary" id="btnsalvarPerfil">Salvar</button>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
 
     
 
@@ -154,8 +193,8 @@
 
 
     <script src="index.js"></script>
-    
-    <script type="module" src="firebase.js"></script>
+    <script type="module"  src="perfilUsuario.js"></script>
+    <script src="login.js"></script>
 </body>
 
 </html>

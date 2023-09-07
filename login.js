@@ -177,7 +177,7 @@ if(txtSenha){
             txtvalidarsenha.classList.remove("text-success");
             txtvalidarsenha.classList.add("text-error");
 
-            txtvalidarsenha.textContent = "Sua senha deve conter no mínimo 6 caracteres com numeros e letras";
+            txtvalidarsenha.textContent = "Mínimo 6 caracteres , numeros e letras";
             txtvalidarsenha.style.display="flex";
         }
     });
