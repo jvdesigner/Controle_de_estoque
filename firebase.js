@@ -56,14 +56,60 @@ const btnEntrarGoogle = document.getElementById('btnEntrarGoogle');
 
 const provider = new GoogleAuthProvider();
 
-const imgUser = document.getElementById("imgUser");
+const imgUser = document.getElementById("imgUser"); // imagem do usuario
+
+const imgUserPerfil = document.getElementById("imgUserPerfil"); // imagem do usuario
 
 let imgUsuario = "";
+
+let SignInProvider        = ""    ;
+let ProviderSpecificUID   = ""    ;
+let nameUser              = ""    ;
+let emailUser             = ""    ;
+let PhotoURL              = ""    ;
 
 // -----------------------------------------------------------------------------------------------------------
 
 
 //  -- Funcoes --
+
+if (window.location.href.includes("perfilUsuario.html")) {
+
+  function mostrarPerfilUsuario(){
+
+    onAuthStateChanged(auth, (user) => {
+
+      if (user !== null) {
+
+          user.providerData.forEach((profile) => {
+
+            SignInProvider        = profile.providerId    ;
+            ProviderSpecificUID   = profile.uid           ;
+            nameUser              =  profile.displayName  ;
+            emailUser             = profile.email         ;
+            PhotoURL              = profile.photoURL      ;
+
+            
+          });
+
+        if(imgUserPerfil&&PhotoURL){imgUserPerfil.src=PhotoURL}; 
+      
+      }
+
+      else
+
+      {alert('Usuário nao encontrado para mostrar as informações')}
+
+    });
+
+
+
+
+  };
+
+  mostrarPerfilUsuario()
+
+};
 
 
 
@@ -104,6 +150,7 @@ function  CriarLoginSenha(){
     let user = userCredential.user;
 
       user.providerData.forEach((profile) => {
+        
       console.log("UID: " + user.uid);
       console.log("Sign-in provider: " + profile.providerId);
       console.log("  Provider-specific UID: " + profile.uid);
@@ -661,6 +708,9 @@ function verificarDadosUsuarioLogado(){
 }
 
 
+
+
+
 // -----------------------------------------------------------------------------------------------------------
 
 // chamando funcoes
@@ -668,6 +718,10 @@ function verificarDadosUsuarioLogado(){
 //deslogarUsuario();
 
 verificarDadosUsuarioLogado()
+
+
+
+
 
 
 
