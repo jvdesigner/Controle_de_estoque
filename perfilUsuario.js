@@ -309,7 +309,7 @@ function deslogarUsuario(){
     });
   
   
-  };
+};
 
 
 
