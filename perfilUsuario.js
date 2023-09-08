@@ -11,6 +11,8 @@ import {
   getAuth,
   onAuthStateChanged,
   updateProfile ,
+  updateEmail ,
+  signOut
   
 
 } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
@@ -42,7 +44,6 @@ const app = initializeApp(firebaseConfig);
 let auth =getAuth(app);
 
 const storage = getStorage();
-
 
 const formAlterarPerfil = document.getElementById('formAlterarPerfil');
 
@@ -123,9 +124,9 @@ function recuperarDadosUsuario(){
     
     }
 
-    else
+    // else
 
-    {alert('Usuário nao encontrado para mostrar as informações')}
+    // {alert('Usuário nao encontrado para mostrar as informações')}
 
     });
 
@@ -182,6 +183,7 @@ function mostrarAlerta(vMensagem,vCor){
 
     txtobjalert02.innerText=vMensagem;
 
+    window.scrollTo({top: 0,behavior: 'smooth'});
 
     switch (vCor) {
 
@@ -284,6 +286,31 @@ if(inputNamePerfil){
 
 }
 
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Deslogar usuario
+
+function deslogarUsuario(){
+
+    signOut(auth)
+    .then(() => {
+  
+      //alert('Usuário deslogado com sucesso');
+      console.log("Usuário deslogado com sucesso");
+      
+      window.location.href = "login.html";
+  
+      
+    })
+    .catch((error) => {
+      // Lidar com erros, se houver
+      console.error("Erro ao deslogar o usuário:", error);
+    });
+  
+  
+  };
+
 
 
 // -----------------------------------------------------------------------------------------------------------
@@ -312,40 +339,55 @@ if( inputNamePerfil.value !=='' && txtEmail.value !=='' ){
         await getDownloadURL(storageRef).then((url) => {imgUsuariosave=url})
 
 
-
      } else { imgUsuariosave = PhotoURL };
 
-    // Salvar imagem e nome
+    // Salvar imagem e nome email
+
+    updateEmail(auth.currentUser, txtEmail.value).then(() => {
+
+        //mostrarAlerta('Email atualizado com sucesso','alert-success');
+
+    }).catch((error) => {
+
+    
+        mostrarAlerta('Tempo expirado: Faça login novamente','alert-error');
+
+        deslogarUsuario();
+
+
+
+    });
 
     updateProfile(auth.currentUser, {
 
-        displayName: inputNamePerfil.value , photoURL: imgUsuariosave
+         displayName: inputNamePerfil.value , photoURL: imgUsuariosave
 
-      }).then(() => {
+       }).then(() => {
 
-        mostrarAlerta('Dados atualizados com sucesso','alert-success');
+         mostrarAlerta('Dados atualizados com sucesso','alert-success');
 
-        setTimeout(function() {
-            window.location.href = "perfilUsuario.html";
-        }, 2000);
+         setTimeout(function() {
+             window.location.href = "perfilUsuario.html";
+         }, 2000);
         
         
 
 
-      }).catch((error) => {
+       }).catch((error) => {
 
 
-        mostrarAlerta('Erro ao tentar salvar','alert-error');
+         mostrarAlerta('Erro ao tentar salvar o nome e foto','alert-error');
 
 
-      });
+     });
+
+    
 
 
 };
 
 
 });
-
 
 
 
@@ -358,4 +400,4 @@ if( inputNamePerfil.value !=='' && txtEmail.value !=='' ){
 recuperarDadosUsuario();
 
 
-
+//

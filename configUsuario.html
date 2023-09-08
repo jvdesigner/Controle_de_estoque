@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📦 Controle de estoque</title>
+
+    <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+</head>
+
+<body>
+
+        <!-- loading -->
+
+        <div id="objloading" class="h-full bg-black/30 fixed w-full z-10 top-0 hidden flex-col items-center justify-center gap-4">
+            
+            <span class="loading loading-spinner text-primary"></span>
+            <p class="text-lg font-semibold text-primary">Carregando</p>
+        </div>
+
+        <!-- NAVBAR -->
+        <div class="navbar bg-base-100 drop-shadow-lg">
+
+            <div class="navbar-start max-md:hidden">
+    
+              <div class="dropdown ">
+    
+                <label tabindex="0" class="btn btn-ghost btn-circle">
+    
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+    
+                </label>
+    
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+    
+                  <li><a href="home.html">início</a></li>
+    
+                  <li><a>Produtos</a></li>
+    
+                  <li><a>Transações</a></li>
+    
+                  <li><a>Análise</a></li>
+    
+                </ul>
+    
+              </div>
+    
+            </div>
+    
+            <div class="navbar-center">
+    
+                <a href="home.html" class="btn btn-ghost normal-case text-xl hover:bg-transparent hover:text-primary"><svg
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                </svg>
+                Controle de estoque</a>
+    
+            </div>
+    
+            <div class="navbar-end">
+    
+            <div class="dropdown dropdown-end">
+                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                  <div class="w-10 rounded-full">
+                    <img class="rounded-full" id="imgUser" src="https://i.ibb.co/0QFXDRn/image.png" />
+                  </div>
+                </label>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                  <li><a href="perfilUsuario.html">Perfil</a></li>
+                  <li><a href="configUsuario.html">Configurações</a></li>
+                  <li id="btnSairConta"><a>Sair</a></li>
+                  <li></li>
+                  <li class="">
+                    <label class="swap swap-rotate rounded-full btn btn-circle">
+      
+                        <!-- this hidden checkbox controls the state -->
+                        <input type="checkbox" id="themeCheckbox" />
+                        
+                        <!-- sun icon -->
+                        <svg class="swap-on fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/></svg>
+                        
+                        <!-- moon icon -->
+                        <svg class="swap-off fill-current w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/></svg>
+                        
+                      </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+    
+          </div>
+
+    <!-- alert -->
+
+    <div id="objalert02" class="alert alert-warning animate__animated animate__fadeIn hidden">
+
+        <svg id="svgAlert" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+        
+  
+          <svg id="svgOk" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          
+          
+          <span id="txtobjalert02">Mensagem de retorno</span>
+        
+      </div>
+
+
+
+    <!-- Login -->
+
+    <div class="hero min-h-screen bg-base-100 max-lg:py-20">
+        
+        <div class="hero-content flex-col lg:flex-row ">
+
+            
+            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 animate__animated animate__fadeInRight">
+
+                <div class="card-body">
+
+                    <div class="text-center lg:text-left animate__animated animate__fadeInLeft">
+
+                        <h1 class="text-3xl font-bold">Redefina sua senha 🔒</h1>
+        
+                        <p class="py-6 opacity-50 text-primary">Preencha sua nova senha</p>
+        
+                    </div>
+
+                    
+        
+
+                    <div class="form-control">
+
+                        <label class="label">
+
+                            <span class="label-text">Senha</span>
+
+                        </label>
+
+                        <div class="relative">
+
+                            <input id="txt-Senha" maxlength="20" type="senha" placeholder="senha" class="input input-bordered input-primary w-full max-w-xs" />
+
+                            <p id="txtvalidarsenha" class="hidden mt-2 text-success text-sm">Senha Válida</p>
+
+                            <svg id="olhoaberto" class="absolute right-2 top-3 w-6 cursor-pointer hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path  stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+
+                              <svg id="olhofechado" class="absolute right-2 top-3 w-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                              </svg>
+                              
+
+
+                              
+                        </div>
+
+                      
+
+                        <label class="label">
+
+                            <span class="label-text">Confirmar senha</span>
+
+                        </label>
+
+                        <div class="relative">
+
+                            <input id="txt-Senha2" maxlength="20" type="senha" placeholder="confirmar" class="input input-bordered input-primary w-full max-w-xs" />
+
+                            <p id="txtvalidarsenha2" class="hidden mt-2 text-success text-sm">Senha Válida</p>
+
+                            <svg id="olhoaberto2" class="absolute right-2 top-3 w-6 cursor-pointer hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path  stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+
+                              <svg id="olhofechado2" class="absolute right-2 top-3 w-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                              </svg>
+                              
+
+
+                              
+                        </div>
+
+                        
+
+                    
+
+                    </div>
+
+                    <br>
+
+                    <div class="form-control mt-6">
+                        <button class="btn btn-primary" id="btnEntrar" >Salvar</button>
+                    </div>
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+        <aside>
+            <p>Copyright © 2023 - Todos direitos reservados</p>
+        </aside>
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+
+    <script src="index.js"></script>
+    <script src="login.js"></script>
+    <script type="module" src="configUsuario.js"></script>
+
+</body>
+
+
+
+</html>

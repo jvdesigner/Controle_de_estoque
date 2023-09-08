@@ -104,9 +104,9 @@ if (window.location.href.includes("perfilUsuario.html")) {
       
       }
 
-      else
+      // else
 
-      {alert('Usuário nao encontrado para mostrar as informações')}
+      // {alert('Usuário nao encontrado para mostrar as informações')}
 
     });
 
